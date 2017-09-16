@@ -17,8 +17,13 @@ angular.module('treephone.controllers', [])
   };
 })
 
-.controller('AddCtrl', function($scope, $location) {
-
+.controller('AddCtrl', function($scope, $location, Friends) {
+  $scope.addContact = function (contact) {
+    contact.parentId = '0'; // FIXME
+    Friends.add(contact);
+    console.log(contact);
+    $location.path('/tab/friends')
+  };
 })
 
 .controller('DashCtrl', function($scope, $location) {
@@ -28,7 +33,9 @@ angular.module('treephone.controllers', [])
 })
 
 .controller('FriendsCtrl', function($scope, Friends) {
-  $scope.friends = Friends.children('0');
+  $scope.friends = Friends.children('0'); // FIXME
+  console.log($scope.friends);
+  console.log(Friends.all());
 })
 
 .controller('FriendDetailCtrl', function($scope, $stateParams, Friends) {

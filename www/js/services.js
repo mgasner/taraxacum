@@ -51,6 +51,10 @@ angular.module('treephone.services', [])
       parentId: '1' }
   ];
 
+  function getNextId () {
+    return _.max(_.map(friends, function (friend) {return _.toInteger(friend.id);})) + 1;
+  };
+
   return {
     all: function() {
       return friends;
@@ -63,6 +67,14 @@ angular.module('treephone.services', [])
 
     children: function(parentId) {
       return _.filter(friends, ['parentId', parentId]);
+    },
+
+    add: function(friend) {
+      friend.id = getNextId();
+      friends.push(friend);
+      console.log("Updating friends...")
+      console.log(friends);
+      return friend;
     }
   }
 });
