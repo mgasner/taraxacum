@@ -1,0 +1,17 @@
+<ion-view title="YIMBY!">
+  <ion-content class="padding">
+    <h3>Please enter the six-digit code we texted you</h3>
+    <form ng-submit="submitTfa(tfa)">
+      <label class="item item-input">
+        <input type="tel" placeholder="XXXXXXX" ng-model="tfa.code">
+      </label><br />
+      <button ion-button round>Verify</button>
+    </form><br />
+    <form ng-submit="resendTfa()">
+      <label class="item item-button">
+        <small>Didn't get a code?</small>
+        <button ion-button round small>Resend</button>
+      </label>
+    </form>
+  </ion-content>
+</ion-view>

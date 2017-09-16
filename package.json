@@ -4,6 +4,8 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
+    "angular": "^1.6.6",
+    "angular-resource": "~1.6.6",
     "express": "~4.4.3"
   }
 }

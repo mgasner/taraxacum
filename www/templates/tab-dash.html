@@ -1,5 +1,12 @@
 <ion-view title="Dashboard">
   <ion-content class="padding">
-    <h1>Dash</h1>
+    <h3>Hi, Sonja!</h3>
+      <h4>You have <strong>2</strong> direct contacts, and <strong>3</strong> contacts in your network.</h4>
+      <div text-center>
+        <button ng-click="go('/tab/add')">Add Contact</button><br />
+        <button ng-click="go('/tab/friends')">View Contacts</button><br />
+        <button ng-click="go('/tab/account')">Admin</button>
+      </div>
+    </ion-list>
   </ion-content>
 </ion-view>

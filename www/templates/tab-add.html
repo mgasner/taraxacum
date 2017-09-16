@@ -1,0 +1,28 @@
+<ion-view title="Add Contact">
+  <ion-content class="padding">
+    <form ng-submit="addContact(contact)">
+      <small><strong>Name</strong></small>
+      <label class="item item-input">
+        <input type="text" placeholder="First" ng-model="contact.firstName"><br/>
+        <input type="text" placeholder="Last" ng-model="contact.lastName">
+      </label><br/>
+      <small><strong>Mobile Phone</strong></small>
+      <label class="item item-input">
+        <input type="tel" placeholder="XXX-XXX-XXXX" ng-model="contact.tel">
+      </label><br/>
+      <small><strong>Address</strong></small>
+      <label class="item item-input">
+        <input type="text" placeholder="Address Line 1" ng-model="contact.address1">
+      </label></br>
+      <label class="item item-input">
+        <input type="text" placeholder="Address Line 2" ng-model="contact.address2">
+      </label></br>
+      <label class="item item-input">
+        <input type="text" placeholder="City" ng-model="contact.city">
+        <input type="text" placeholder="State" ng-model="contact.state">
+        <input type="tel" placeholder="Zip" ng-model="contact.zipCode">
+      </label><br/>
+      <button ion-button round>Save</button>
+    </form>
+  </ion-content>
+</ion-view>
