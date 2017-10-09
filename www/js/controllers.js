@@ -1,9 +1,16 @@
 angular.module('treephone.controllers', [])
 
-.controller('LoginCtrl', function($scope, $location) {
+.controller('LoginCtrl', function($scope, $location, $http) {
   $scope.submitLogin = function(login) {
+    $http.post(api_root + '/tfa', {'phone_number': login.tel})
+    .then(
+      function (response) {
+        $location.path('/tfa')
+      },
+      function (response) {
+        $location.path('/tfa')
+      });
     console.log(login.tel);
-    $location.path('/tfa');
   };
 })
 
