@@ -23,6 +23,10 @@ angular.module('treephone', ['ionic', 'ngResource', 'treephone.controllers', 'tr
 
 .constant('_', window._)
 
+// config parameters
+
+.constant('api_root', 'https://sleepy-sands-43097.herokuapp.com')
+
 .config(function($stateProvider, $urlRouterProvider) {
 
   // Ionic uses AngularUI Router which uses the concept of states
