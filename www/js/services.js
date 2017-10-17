@@ -30,13 +30,18 @@ angular.module('treephone.services', [])
 
     getUserId: function () {
       return _userId;
+    },
+
+    getHeaders: function () {
+      return {
+        'X-Dandelion-User': this.getUserId(),
+        'X-Dandelion-Session': this.getSessionId()
+      }
     }
   }
 })
-/**
- * A simple example service that returns some data.
- */
-.factory('Friends', function($resource, _) {
+
+.factory('Friends', function($resource, $http, Auth, _) {
   // Might use a resource here that returns a JSON array
   //return $resource('https://jsonplaceholder.typicode.com/users/:userId');
 
@@ -94,6 +99,15 @@ angular.module('treephone.services', [])
     },
 
     get: function(friendId) {
+      var req = {
+        method: 'GET',
+        url: api_root + '/users/' + friendId,
+        headers: Auth.getHeaders()
+      }
+      var friend = $http(req)
+      .then(
+        function (result) {console.log(result);},
+        function (result) {return;});
       // Simple index lookup
       return friends[friendId];
     },
