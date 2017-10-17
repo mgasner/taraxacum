@@ -4,6 +4,7 @@ angular.module('treephone.services', [])
   var _phoneNumber;
   var _sessionId;
   var _expiry;
+  var _userId;
 
   return {
     setPhoneNumber: function (phoneNumber) {
@@ -21,6 +22,14 @@ angular.module('treephone.services', [])
     // FIXME this auth is broken because it doesn't account for expiry
     getSessionId: function () {
       return _sessionId;
+    },
+
+    setUserId: function(userId) {
+      _userId = userId;
+    },
+
+    getUserId: function () {
+      return _userId;
     }
   }
 })

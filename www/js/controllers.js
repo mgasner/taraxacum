@@ -29,6 +29,10 @@ angular.module('treephone.controllers', [])
       .then(
         function (response) {
           console.log(response);
+          Auth.setSessionId(
+            response.data.session_uid);
+          Auth.setUserId(
+            response.data.user_uid);
           $location.path('/tab/dash');
         },
         function (response) {
