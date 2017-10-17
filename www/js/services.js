@@ -107,7 +107,7 @@ angular.module('treephone.services', [])
       var friend = $http(req)
       .then(
         function (result) {console.log(result);},
-        function (result) {return;});
+        function (result) {console.log(result);});
       // Simple index lookup
       return friends[friendId];
     },
