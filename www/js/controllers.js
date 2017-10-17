@@ -21,7 +21,7 @@ angular.module('treephone.controllers', [])
 
 .controller(
   'TfaCtrl',
-  function($scope, $location, Auth) {
+  function($scope, $location, $http, Auth, api_root) {
     $scope.submitTfa = function (tfa) {
       $http.post(
         api_root + '/sessions',
