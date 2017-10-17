@@ -103,7 +103,8 @@ angular.module('treephone.services', [])
         method: 'GET',
         url: api_root + '/users/' + friendId,
         headers: Auth.getHeaders()
-      }
+      };
+      console.log(req);
       var friend = $http(req)
       .then(
         function (result) {console.log(result);},
