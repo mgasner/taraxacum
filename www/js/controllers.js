@@ -1,27 +1,44 @@
 angular.module('treephone.controllers', [])
 
-.controller('LoginCtrl', function($scope, $location, $http, api_root) {
-  $scope.submitLogin = function(login) {
-    $http.post(api_root + '/tfa', {'phone_number': login.tel})
-    .then(
-      function (response) {
-        $location.path('/tfa')
-      },
-      function (response) {
-        $location.path('/tfa')
-      });
+.controller(
+  'LoginCtrl',
+  function($scope, $location, $http, Auth, api_root) {
+    $scope.submitLogin = function(login) {
+      Auth.setPhoneNumber(login.tel);
+      $http.post(
+        api_root + '/tfa',
+        {'phone_number': login.tel})
+      .then(
+        function (response) {
+          $location.path('/tfa')
+        },
+        function (response) {
+          $location.path('/tfa')
+        });
     console.log(login.tel);
   };
 })
 
-.controller('TfaCtrl', function($scope, $location) {
-  $scope.submitTfa = function (tfa) {
-    console.log(tfa.code);
-    $location.path('/tab/dash')
-  };
-  $scope.resendTfa = function () {
-    console.log('Resending Tfa...');
-  };
+.controller(
+  'TfaCtrl',
+  function($scope, $location, Auth) {
+    $scope.submitTfa = function (tfa) {
+      $http.post(
+        api_root + '/sessions',
+        {'tfa': tfa.code})
+      .then(
+        function (response) {
+          console.log(response);
+          $location.path('/tab/dash');
+        },
+        function (response) {
+          $location.path('/login');
+        });
+      console.log(tfa.code);
+    };
+    $scope.resendTfa = function () {
+      $location.path('/login');
+    };
 })
 
 .controller('AddCtrl', function($scope, $location, Friends) {
