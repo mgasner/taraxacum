@@ -25,7 +25,9 @@ angular.module('treephone', ['ionic', 'ngResource', 'treephone.controllers', 'tr
 
 // config parameters
 
-.constant('api_root', 'https://sleepy-sands-43097.herokuapp.com')
+.constant(
+  'api_root',
+  'https://dandelion-phonetree.herokuapp.com')
 
 .config(function($stateProvider, $urlRouterProvider) {
 
