@@ -1,5 +1,29 @@
 angular.module('treephone.services', [])
 
+.factory('Auth', function($resource) {
+  var _phoneNumber;
+  var _sessionId;
+  var _expiry;
+
+  return {
+    setPhoneNumber: function (phoneNumber) {
+      _phoneNumber = phoneNumber;
+    },
+    
+    getPhoneNumber: function () {
+      return _phoneNumber;
+    },
+
+    setSessionId: function (sessionId) {
+      _sessionId = sessionId;
+    },
+
+    // FIXME this auth is broken because it doesn't account for expiry
+    getSessionId: function () {
+      return _sessionId;
+    }
+  }
+})
 /**
  * A simple example service that returns some data.
  */
