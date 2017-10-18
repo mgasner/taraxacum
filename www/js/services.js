@@ -33,10 +33,12 @@ angular.module('treephone.services', [])
     },
 
     getHeaders: function () {
-      return {
+      var headers = {
         'X-Dandelion-User': this.getUserId(),
         'X-Dandelion-Session': this.getSessionId()
-      }
+      };
+      console.log(headers);
+      return headers;
     }
   }
 })
