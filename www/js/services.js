@@ -41,7 +41,7 @@ angular.module('treephone.services', [])
   }
 })
 
-.factory('Friends', function($resource, $http, Auth, _) {
+.factory('Friends', function($resource, $http, Auth, api_root, _) {
   // Might use a resource here that returns a JSON array
   //return $resource('https://jsonplaceholder.typicode.com/users/:userId');
 
