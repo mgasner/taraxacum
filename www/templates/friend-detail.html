@@ -9,25 +9,20 @@
     <ion-list>
       <ion-item>
         <small><strong>Name</strong></small><br />
-        {{friend.firstName}} {{friend.lastName}}
+        {{friend.first_name}} {{friend.last_name}}
       </ion-item>
       <ion-item>
         <small><strong>Mobile Phone</strong></small><br />
-        {{friend.tel}}
+        {{friend.phone_number}}
       </ion-item>
       <ion-item>
         <small><strong>Address</strong></small><br />
-        {{friend.address1}}<br />
-        {{friend.address2 || ""}}<br />
-        {{friend.city}}, {{friend.state}} {{friend.zipCode}}
+        {{friend.address_1}}<br />
+        {{friend.address_2 || ""}}<br />
+        {{friend.city}}, {{friend.state}} {{friend.zip_code}}
       </ion-item>
     </ion-list>
-    <h4>{{friend.firstName}} has {{nChildren}} direct contacts:</h4>
-    <ion-list>
-      <ion-item ng-repeat="child in children" type="item-text-wrap" href="#/tab/friend/{{child.id}}">
-        {{child.firstName}} {{child.lastName}}
-      </ion-item>
-    </ion-list>
-
+    <h4>{{friend.first_name}} has {{friend.outdegree}} direct contacts
+      and {{friend.network_size}} people in their network.</h4>
   </ion-content>
 </ion-view>

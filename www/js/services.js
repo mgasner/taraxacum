@@ -6,6 +6,14 @@ angular.module('treephone.services', [])
   var _expiry;
   var _userId;
 
+  function getUserId() {
+    return _userId;
+  };
+
+  function getSessionId() {
+    return _sessionId;
+  };
+
   return {
     setPhoneNumber: function (phoneNumber) {
       _phoneNumber = phoneNumber;
@@ -20,24 +28,20 @@ angular.module('treephone.services', [])
     },
 
     // FIXME this auth is broken because it doesn't account for expiry
-    getSessionId: function () {
-      return _sessionId;
-    },
+    'getSessionId': getSessionId,
 
     setUserId: function(userId) {
       _userId = userId;
     },
 
-    getUserId: function () {
-      return _userId;
-    },
+    'getUserId': getUserId,
 
     getHeaders: function () {
+       
       var headers = {
-        'X-Dandelion-User': this.getUserId(),
-        'X-Dandelion-Session': this.getSessionId()
+        'X-Dandelion-User': getUserId(),
+        'X-Dandelion-Session': getSessionId()
       };
-      console.log(headers);
       return headers;
     }
   }
@@ -48,48 +52,7 @@ angular.module('treephone.services', [])
   //return $resource('https://jsonplaceholder.typicode.com/users/:userId');
 
   // Some fake testing data
-  var friends = [
-    { id: '0',
-      firstName: 'Sonja',
-      lastName: 'Trauss',
-      address1: '603 Natoma St',
-      address2: '#305',
-      city: 'San Francisco',
-      state: 'CA',
-      zipCode: '94103',
-      tel: '215-900-1457',
-      parentId: null },
-    { id: '1',
-      firstName: 'Max',
-      lastName: 'Gasner',
-      address1: '1618 12th St',
-      address2: null,
-      city: 'Oakland',
-      state: 'CA',
-      zipCode: '94607',
-      tel: '510-495-4557',
-      parentId: '0' },
-    { id: '2',
-      firstName: 'Ethan',
-      lastName: 'Ashley',
-      address1: '603 Natoma St',
-      address2: '#305',
-      city: 'San Francisco',
-      state: 'CA',
-      zipCode: '94103',
-      tel: '510-725-2822',
-      parentId: '0'},
-    { id: '3',
-      firstName: 'Trevor',
-      lastName: 'Hardee',
-      address1: '1618 12th St',
-      address2: null,
-      city: 'Oakland',
-      state: 'CA',
-      zipCode: '94607',
-      tel: '707-320-7932',
-      parentId: '1' }
-  ];
+  var friends;
 
   function getNextId () {
     return _.max(_.map(friends, function (friend) {return _.toInteger(friend.id);})) + 1;
@@ -106,17 +69,33 @@ angular.module('treephone.services', [])
         url: api_root + '/users/' + friendId,
         headers: Auth.getHeaders()
       };
-      console.log(req);
-      var friend = $http(req)
+      var promise = $http(req)
       .then(
-        function (result) {console.log(result);},
-        function (result) {console.log(result);});
-      // Simple index lookup
-      return friends[friendId];
+        function (result) {
+          friend = result.data;
+          return friend;
+        },
+        function (result) {
+          console.log(result)
+          return {};});
+      return promise;
     },
-
     children: function(parentId) {
-      return _.filter(friends, ['parentId', parentId]);
+      var req = {
+        method: 'GET',
+        url: api_root + '/users/' + parentId + '/children',
+        headers: Auth.getHeaders()
+      }
+      var promise = $http(req)
+      .then(
+        function (result) {
+          friends = result.data;
+          return friends;
+        },
+        function (result) {
+          console.log(result);
+          return [];});
+      return promise;
     },
 
     add: function(friend) {

@@ -15,20 +15,20 @@ angular.module('treephone.controllers', [])
         function (response) {
           $location.path('/tfa')
         });
-    console.log(login.tel);
+    // console.log(login.tel);
   };
 })
 
 .controller(
   'TfaCtrl',
-  function($scope, $location, $http, Auth, api_root) {
+  function($scope, $location, $http, Auth, Friends, api_root) {
     $scope.submitTfa = function (tfa) {
       $http.post(
         api_root + '/sessions',
         {'tfa': tfa.code})
       .then(
         function (response) {
-          console.log(response);
+          // console.log(response);
           Auth.setSessionId(
             response.data.session_uid);
           Auth.setUserId(
@@ -38,7 +38,6 @@ angular.module('treephone.controllers', [])
         function (response) {
           $location.path('/login');
         });
-      console.log(tfa.code);
     };
     $scope.resendTfa = function () {
       $location.path('/login');
@@ -49,33 +48,38 @@ angular.module('treephone.controllers', [])
   $scope.addContact = function (contact) {
     contact.parentId = '0'; // FIXME
     Friends.add(contact);
-    console.log(contact);
     $location.path('/tab/friends')
   };
 })
 
-.controller('DashCtrl', function($scope, $location) {
+.controller('DashCtrl', function($scope, $location, Auth, Friends) {
   $scope.go = function ( path ) {
     $location.path( path );
   };
+  Friends.get(Auth.getUserId()).then(
+    function (user) {
+      console.log(user);
+      $scope.user = user;},
+    function () {
+      $scope.user = {};
+    });
+
 })
 
-.controller('FriendsCtrl', function($scope, Friends) {
-  $scope.friends = Friends.children('0'); // FIXME
-  console.log($scope.friends);
-  console.log(Friends.all());
+.controller('FriendsCtrl', function($scope, Auth, Friends) {
+  Friends.children(Auth.getUserId()).then(
+    function (friends){ $scope.friends = friends; },
+    function () { $scope.friends = []; });
 })
 
 .controller('FriendDetailCtrl', function($scope, $stateParams, Friends) {
-  $scope.friend = Friends.get($stateParams.friendId);
-  $scope.children = Friends.children($stateParams.friendId);
-  $scope.nChildren = _.size($scope.children);
-  console.log($stateParams.friendId);
-  console.log(_.filter(Friends.all(), {'parentId': 1}));
-  console.log(_.filter(Friends.all(), ['parentId', 1]));
-  console.log(typeof($stateParams.friendId));
-  console.log(_.filter(Friends.all(), ['parentId', $stateParams.friendId]));
-  console.log(Friends.children($stateParams.friendId));
+  Friends.get($stateParams.friendId).then(
+    function (friend) {
+      console.log(friend);
+      $scope.friend = friend;},
+    function () {
+      $scope.friend = {};
+    });
 })
 
 .controller('AccountCtrl', function($scope) {
