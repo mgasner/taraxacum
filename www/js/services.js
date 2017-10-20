@@ -101,6 +101,7 @@ angular.module('treephone.services', [])
           return {};
         }
       );
+      return promise;
     }
   }
 });
