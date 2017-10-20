@@ -48,21 +48,8 @@ angular.module('treephone.services', [])
 })
 
 .factory('Friends', function($resource, $http, Auth, api_root, _) {
-  // Might use a resource here that returns a JSON array
-  //return $resource('https://jsonplaceholder.typicode.com/users/:userId');
-
-  // Some fake testing data
-  var friends;
-
-  function getNextId () {
-    return _.max(_.map(friends, function (friend) {return _.toInteger(friend.id);})) + 1;
-  };
 
   return {
-    all: function() {
-      return friends;
-    },
-
     get: function(friendId) {
       var req = {
         method: 'GET',
@@ -98,12 +85,22 @@ angular.module('treephone.services', [])
       return promise;
     },
 
-    add: function(friend) {
-      friend.id = getNextId();
-      friends.push(friend);
-      console.log("Updating friends...")
-      console.log(friends);
-      return friend;
+    add: function(friend, parentId) {
+      var req = {
+        method: 'POST',
+        url: api_root + '/users/' + parentId + '/children',
+        headers: Auth.getHeaders(),
+        data: friend
+      }
+      var promise = $http(req)
+      .then(
+        function (result) {
+          return result.data;
+        },
+        function (result) {
+          return {};
+        }
+      );
     }
   }
 });

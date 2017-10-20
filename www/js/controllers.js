@@ -44,11 +44,12 @@ angular.module('treephone.controllers', [])
     };
 })
 
-.controller('AddCtrl', function($scope, $location, Friends) {
+.controller('AddCtrl', function($scope, $location, Friends, Auth) {
   $scope.addContact = function (contact) {
-    contact.parentId = '0'; // FIXME
-    Friends.add(contact);
-    $location.path('/tab/friends')
+    Friends.add(contact, Auth.getUserId()).then(
+      function () { $location.path('/tab/friends'); },
+      function () { $location.path('/tab/friends'); }
+    )
   };
 })
 
