@@ -1,9 +1,9 @@
 <ion-view title="Account">
   <ion-content class="padding">
       <div text-center>
-        <button>Delete Account</button><br />
-        <button>Export Contacts as CSV</button><br />
-        <button>Edit Profile</button><br />
+        <button ng-click="go('/tab/delete')">Delete Account</button><br />
+        <button ng-click="go('/tab/csv')">Export Contacts as CSV</button><br />
+        <button ng-click="go('/tab/detail')">Edit Profile</button>
       </div>
   </ion-content>
 </ion-view>

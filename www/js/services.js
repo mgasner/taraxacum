@@ -102,6 +102,39 @@ angular.module('treephone.services', [])
         }
       );
       return promise;
+    },
+    
+    edit: function(friend) {
+      var req = {
+        method: 'POST',
+        url: api_root + '/users/' + friend.uid,
+        headers: Auth.getHeaders(),
+        data: friend
+      }
+      var promise = $http(req)
+      .then(
+        function (result) {
+          return result.data;
+        },
+        function (result) {
+          return {};
+        }
+      );
+      return promise;
+    },
+
+    csv: function(friendId) {
+      var req = {
+        method: 'GET',
+        url: api_root + '/users/' + friendId + '/csv',
+        headers: Auth.getHeaders()
+      };
+      var promise  = $http(req)
+      .then(
+        function () { return {};},
+        function () { return {};}
+      );
+      return promise;
     }
   }
 });

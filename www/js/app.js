@@ -5,7 +5,9 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('treephone', ['ionic', 'ngResource', 'treephone.controllers', 'treephone.services'])
+angular.module(
+  'treephone',
+  ['ionic', 'ngResource', 'treephone.controllers', 'treephone.services'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -98,6 +100,16 @@ angular.module('treephone', ['ionic', 'ngResource', 'treephone.controllers', 'tr
       }
     })
 
+    .state('tab.detail', {
+      url: '/detail',
+      views: {
+        'tab-account': {
+          templateUrl: 'templates/account-detail.html',
+          controller: 'AccountDetailCtrl'
+        }
+      }
+    })
+
     .state('tab.account', {
       url: '/account',
       views: {
@@ -106,7 +118,28 @@ angular.module('treephone', ['ionic', 'ngResource', 'treephone.controllers', 'tr
           controller: 'AccountCtrl'
         }
       }
-    });
+    })
+    
+    .state('tab.delete', {
+      url: '/delete',
+      views: {
+        'tab-account': {
+          templateUrl: 'templates/delete-confirm.html',
+          controller: 'DeleteCtrl'
+        }
+      }
+    })
+
+    .state('tab.csv', {
+      url: '/csv',
+      views: {
+        'tab-account': {
+          templateUrl: 'templates/send-csv.html',
+          controller: 'CsvCtrl'
+        }
+      }
+    })
+    ;
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/login');

@@ -1,0 +1,16 @@
+<ion-view title="Export Contacts">
+  <ion-content class="padding">
+    <form ng-submit="requestCsv(contact)">
+      <strong>Confirm you'd like us to send your contacts as a .csv to the
+          following email address.</strong> If this doesn't look right, you
+          can change your email address on file below.<br />
+    <label class="item item-input">
+        <input type="text" placeholder="name@domain.com"
+            ng-model="contact.email_address">
+      </label><br/>
+      <input type="hidden" ng-model="contact.uid">
+      <button ion-button round>Confirm</button><br />
+      <button type="button" ion-button round ng-click="cancel();">Cancel</button>
+    </form>
+  </ion-content>
+</ion-view>

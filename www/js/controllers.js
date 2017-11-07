@@ -28,7 +28,7 @@ angular.module('treephone.controllers', [])
         {'tfa': tfa.code})
       .then(
         function (response) {
-          // console.log(response);
+          console.log(response);
           Auth.setSessionId(
             response.data.session_uid);
           Auth.setUserId(
@@ -55,8 +55,10 @@ angular.module('treephone.controllers', [])
 
 .controller('DashCtrl', function($scope, $location, Auth, Friends) {
   $scope.go = function ( path ) {
+    console.log(path);
     $location.path( path );
   };
+  console.log('getting user...');
   Friends.get(Auth.getUserId()).then(
     function (user) {
       console.log(user);
@@ -64,7 +66,6 @@ angular.module('treephone.controllers', [])
     function () {
       $scope.user = {};
     });
-
 })
 
 .controller('FriendsCtrl', function($scope, Auth, Friends) {
@@ -83,5 +84,61 @@ angular.module('treephone.controllers', [])
     });
 })
 
-.controller('AccountCtrl', function($scope) {
-});
+.controller('AccountCtrl', function($scope, $location) {
+  $scope.go = function ( path ) {
+    console.log(path);
+    $location.path( path );
+  };
+})
+
+.controller('AccountDetailCtrl', function ($scope, $location, Auth, Friends) {
+  $scope.editContact = function (contact) {
+    Friends.edit(contact).then(
+      function () { $location.path('/tab/account'); },
+      function () { $location.path('/tab/account'); }
+    )
+  };
+  console.log('getting user...');
+  Friends.get(Auth.getUserId()).then(
+    function (user) {
+      console.log(user);
+      $scope.contact = user;},
+    function () {
+      console.log("Couldn't fetch user");
+      $scope.contact = {};
+    });
+})
+
+.controller('DeleteCtrl', function ($scope, $location, Auth, Friends) {
+  $scope.delete = function () {
+    Friends.delete(Auth.getUserId()).then(
+      function () { $location.path('/login'); },
+      function () { $location.path('/login'); }
+    )
+  };
+
+  $scope.cancel = function () { $location.path('/tab/account'); }
+})
+
+.controller('CsvCtrl', function ($scope, $location, Auth, Friends) {
+  $scope.requestCsv = function (contact) {
+    Friends.edit(contact).then(
+      function () { Friends.csv(contact.uid).then(
+        function () { $location.path('/tab/account'); },
+        function () { $location.path('/tab/account'); }
+      )},
+      function () { $location.path('/tab/account'); })
+  };
+  
+  $scope.cancel = function () { $location.path('/tab/account'); }
+  console.log('getting user...');
+  Friends.get(Auth.getUserId()).then(
+    function (user) {
+      console.log(user);
+      $scope.contact = user;},
+    function () {
+      console.log("Couldn't fetch user");
+      $scope.contact = {};
+    });
+
+  });
