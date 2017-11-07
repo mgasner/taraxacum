@@ -7,7 +7,11 @@
 // 'starter.controllers' is found in controllers.js
 angular.module(
   'treephone',
-  ['ionic', 'ngResource', 'treephone.controllers', 'treephone.services'])
+  ['ionic',
+   'ngResource',
+   'treephone.controllers',
+   'treephone.services',
+   'LocalStorageModule'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {

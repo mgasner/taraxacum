@@ -1,37 +1,41 @@
 angular.module('treephone.services', [])
 
-.factory('Auth', function($resource) {
+.factory('Auth', function($resource, localStorageServiceProvider) {
   var _phoneNumber;
   var _sessionId;
   var _expiry;
   var _userId;
 
   function getUserId() {
-    return _userId;
+    return _userId || localStorageServiceProvider.get('_userId');
   };
 
   function getSessionId() {
-    return _sessionId;
+    return _sessionId || localStorageServiceProvider.get('_sessionId');
   };
 
   return {
     setPhoneNumber: function (phoneNumber) {
       _phoneNumber = phoneNumber;
+      localStorageServiceProvider.set('_phoneNumber', phoneNumber);
     },
     
     getPhoneNumber: function () {
-      return _phoneNumber;
+      return _phoneNumber || localStorageServiceProvider.get('_phoneNumber');
     },
 
     setSessionId: function (sessionId) {
       _sessionId = sessionId;
+      localStorageServiceProvider.set('_sessionId', sessionId);
     },
 
     // FIXME this auth is broken because it doesn't account for expiry
+    // Ha, except now we don't have expiry
     'getSessionId': getSessionId,
 
     setUserId: function(userId) {
       _userId = userId;
+      localStorageServiceProvider.set('_userId', userId);
     },
 
     'getUserId': getUserId,
