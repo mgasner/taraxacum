@@ -78,9 +78,27 @@ angular.module('treephone.controllers', [])
   Friends.get($stateParams.friendId).then(
     function (friend) {
       console.log(friend);
-      $scope.friend = friend;},
+      $scope.friend = friend;
+      console.log(friend.phone_number);
+      formattedPhone = (
+        '(' + friend.phone_number.substring(2, 5) + ') ' +
+        friend.phone_number.substring(5, 8) + '-' +
+        friend.phone_number.substring(8)
+      );
+      telephoneLink = (
+        'tel:' + friend.phone_number.substring(1, 2) +
+        '-' + friend.phone_number.substring(2, 5) + 
+        '-' + friend.phone_number.substring(5, 8) +
+        '-' + friend.phone_number.substring(8));
+      console.log(telephoneLink);
+      console.log(formattedPhone);
+      $scope.telephoneLink = telephoneLink;
+      $scope.formattedPhone = formattedPhone;
+    },
     function () {
       $scope.friend = {};
+      $scope.telephoneLink = '';
+      $scope.formattedPhone = ''
     });
 })
 
@@ -132,6 +150,7 @@ angular.module('treephone.controllers', [])
   
   $scope.cancel = function () { $location.path('/tab/account'); }
   console.log('getting user...');
+
   Friends.get(Auth.getUserId()).then(
     function (user) {
       console.log(user);
