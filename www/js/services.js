@@ -1,32 +1,32 @@
 angular.module('treephone.services', [])
 
-.factory('Auth', function($resource, localStorageServiceProvider) {
+.factory('Auth', function($resource, localStorageService) {
   var _phoneNumber;
   var _sessionId;
   var _expiry;
   var _userId;
 
   function getUserId() {
-    return _userId || localStorageServiceProvider.get('_userId');
+    return _userId || localStorageService.get('_userId');
   };
 
   function getSessionId() {
-    return _sessionId || localStorageServiceProvider.get('_sessionId');
+    return _sessionId || localStorageService.get('_sessionId');
   };
 
   return {
     setPhoneNumber: function (phoneNumber) {
       _phoneNumber = phoneNumber;
-      localStorageServiceProvider.set('_phoneNumber', phoneNumber);
+      localStorageService.set('_phoneNumber', phoneNumber);
     },
     
     getPhoneNumber: function () {
-      return _phoneNumber || localStorageServiceProvider.get('_phoneNumber');
+      return _phoneNumber || localStorageService.get('_phoneNumber');
     },
 
     setSessionId: function (sessionId) {
       _sessionId = sessionId;
-      localStorageServiceProvider.set('_sessionId', sessionId);
+      localStorageService.set('_sessionId', sessionId);
     },
 
     // FIXME this auth is broken because it doesn't account for expiry
@@ -35,7 +35,7 @@ angular.module('treephone.services', [])
 
     setUserId: function(userId) {
       _userId = userId;
-      localStorageServiceProvider.set('_userId', userId);
+      localStorageService.set('_userId', userId);
     },
 
     'getUserId': getUserId,
