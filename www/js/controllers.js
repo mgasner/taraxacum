@@ -52,8 +52,9 @@ angular.module('treephone.controllers', [])
     )
   };
   $scope.scrollTo = function (hash) {
-    $location.hash(hash);
-    $anchorScroll();
+    return;
+    // $location.hash(hash);
+    // $anchorScroll();
   }
 })
 
