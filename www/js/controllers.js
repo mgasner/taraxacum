@@ -44,13 +44,17 @@ angular.module('treephone.controllers', [])
     };
 })
 
-.controller('AddCtrl', function($scope, $location, Friends, Auth) {
+.controller('AddCtrl', function($scope, $location, Friends, Auth, $anchorScroll) {
   $scope.addContact = function (contact) {
     Friends.add(contact, Auth.getUserId()).then(
       function () { $location.path('/tab/friends'); },
       function () { $location.path('/tab/friends'); }
     )
   };
+  $scope.scrollTo = function (hash) {
+    $location.hash(hash);
+    $anchorScroll();
+  }
 })
 
 .controller('DashCtrl', function($scope, $location, Auth, Friends) {
