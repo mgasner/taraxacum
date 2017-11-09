@@ -80,6 +80,10 @@ angular.module('treephone.controllers', [])
 })
 
 .controller('FriendDetailCtrl', function($scope, $stateParams, Friends) {
+  $scope.invite = function () {
+    Friends.invite($stateParams.friendId);
+    // TODO: pop up a modal
+  }
   Friends.get($stateParams.friendId).then(
     function (friend) {
       console.log(friend);

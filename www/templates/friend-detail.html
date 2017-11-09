@@ -18,5 +18,8 @@
     </ion-list>
     <h4>{{friend.first_name}} has {{friend.outdegree}} direct contacts
       and {{friend.network_size}} people in their network.</h4>
+    <form ng-submit="invite()">
+      <button ion-button round>Resend invite</button> <br />
+    </form>
   </ion-content>
 </ion-view>

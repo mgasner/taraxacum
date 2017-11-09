@@ -139,6 +139,21 @@ angular.module('treephone.services', [])
         function () { return {};}
       );
       return promise;
-    }
+    },
+
+    invite: function(friendId) {
+      var req = {
+        method: 'GET',
+        url: api_root + '/users/' + friendId + '/invite',
+        headers: Auth.getHeaders()
+      };
+      var promise  = $http(req)
+      .then(
+        function () { return {};},
+        function () { return {};}
+      );
+      return promise;
+    },
+
   }
 });
