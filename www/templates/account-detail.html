@@ -1,6 +1,7 @@
 <ion-view title="Edit Profile" cache-view="false">
   <ion-content class="padding">
-    <form ng-submit="editContact(contact)">
+    <form ng-submit="editContact(contact)"
+          promise-btn>
       <small><strong>Name</strong></small>
       <label class="item item-input">
         <input type="text" placeholder="First"
@@ -28,7 +29,7 @@
         <input type="tel" placeholder="Zip" ng-model="contact.zip_code">
       </label><br/>
       <input type="hidden" ng-model="contact.uid">
-      <button ion-button round>Save</button>
+      <button type="submit" ion-button round>Save</button>
     </form>
   </ion-content>
 </ion-view>

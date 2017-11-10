@@ -1,6 +1,6 @@
 <ion-view title="Add Contact" cache-view="false">
   <ion-content class="padding">
-    <form ng-submit="addContact(contact)">
+    <form ng-submit="addContact(contact)" promise-btn>
       <small><strong>Name</strong></small>
       <label class="item item-input">
         <input type="text" placeholder="First"
@@ -24,7 +24,7 @@
                ng-model="contact.email_address"
                id="phone_number">
       </label><br />
-      <button ion-button round>{{ rpc.pending ? '...' : 'Next' }}</button>
+      <button ion-button round type="submit">Next</button>
     </form>
   </ion-content>
 </ion-view>

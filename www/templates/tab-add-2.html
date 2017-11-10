@@ -1,6 +1,6 @@
 <ion-view title="Add Contact" cache-view="false">
   <ion-content class="padding">
-    <form ng-submit="editContact(contact)">
+    <form ng-submit="editContact(contact)" promise-btn>
       <small><strong>Address</strong></small>
       <label class="item item-input">
         <input type="text" placeholder="Address Line 1"
@@ -28,7 +28,7 @@
                ng-maxlength="5"
                size="5">
       </label><br/>
-      <button ion-button round>{{ rpc.pending ? '...' : 'Next' }}</button>
+      <button ion-button round type="submit">Next</button>
     </form>
   </ion-content>
 </ion-view>

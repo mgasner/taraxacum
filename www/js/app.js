@@ -12,6 +12,7 @@ angular.module(
    'treephone.controllers',
    'treephone.services',
    'LocalStorageModule',
+   'angularPromiseButtons',
    'angularSpinner'])
 
 .run(function($ionicPlatform) {

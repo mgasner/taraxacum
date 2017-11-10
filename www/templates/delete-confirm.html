@@ -1,8 +1,8 @@
 <ion-view title="Confirm Delete">
   <ion-content class="padding">
-    <form ng-submit="delete()">
+    <form ng-submit="delete()" promise-btn>
       <strong>Confirm you want to delete your account</strong><br />
-      <button ion-button round>Delete</button> <br />
+      <button ion-button round type="submit">Delete</button> <br />
       <button type="button" ion-button round ng-click="cancel();">Never mind</button>
     </form>
   </ion-content>

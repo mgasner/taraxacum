@@ -6,7 +6,7 @@ angular.module('treephone.controllers', [])
     $scope.rpc = Rpc;
     $scope.submitLogin = function(login) {
       Auth.setPhoneNumber(login.tel);
-      $http.post(
+      return $http.post(
         api_root + '/tfa',
         {'phone_number': login.tel})
       .then(
@@ -25,7 +25,7 @@ angular.module('treephone.controllers', [])
   function($scope, $location, $http, Rpc, Auth, Friends, api_root) {
     $scope.rpc = Rpc;
     $scope.submitTfa = function (tfa) {
-      $http.post(
+      return $http.post(
         api_root + '/sessions',
         {'tfa': tfa.code})
       .then(
@@ -42,7 +42,16 @@ angular.module('treephone.controllers', [])
         });
     };
     $scope.resendTfa = function () {
-      $location.path('/login');
+      return $http.post(
+        api_root + '/tfa',
+        {'phone_number': Auth.getPhoneNumber()})
+      .then(
+        function (response) {
+          $location.path('/tfa')
+        },
+        function (response) {
+          $location.path('/tfa')
+        });
     };
 })
 
@@ -64,7 +73,7 @@ angular.module('treephone.controllers', [])
 
   $scope.addContact = function (contact) {
     console.log(next);
-    Friends.add(contact, Auth.getUserId()).then(
+    return Friends.add(contact, Auth.getUserId()).then(
       function (contact) {
         Friends.editing = contact.uid;
         console.log(next);
@@ -78,7 +87,7 @@ angular.module('treephone.controllers', [])
     console.log('editing...');
     contact.uid = Friends.editing;
     console.log(contact)
-    Friends.edit(contact).then(
+    return Friends.edit(contact).then(
       function () { $location.path(next); },
       // TODO should pop a modal
       function () { return; }
@@ -95,7 +104,7 @@ angular.module('treephone.controllers', [])
   $scope.rpc = Rpc;
 
   console.log('getting user...');
-  Friends.get(Auth.getUserId()).then(
+  return Friends.get(Auth.getUserId()).then(
     function (user) {
       console.log(user);
       $scope.user = user;},
@@ -105,14 +114,14 @@ angular.module('treephone.controllers', [])
 })
 
 .controller('FriendsCtrl', function($scope, Auth, Friends) {
-  Friends.children(Auth.getUserId()).then(
+  return Friends.children(Auth.getUserId()).then(
     function (friends){ $scope.friends = friends; },
     function () { $scope.friends = []; });
 })
 
 .controller('FriendDetailCtrl', function($scope, $stateParams, Friends) {
   $scope.invite = function () {
-    Friends.invite($stateParams.friendId);
+    return Friends.invite($stateParams.friendId);
     // TODO: pop up a modal
   }
   Friends.get($stateParams.friendId).then(
@@ -151,7 +160,7 @@ angular.module('treephone.controllers', [])
 
 .controller('AccountDetailCtrl', function ($scope, $location, Auth, Friends) {
   $scope.editContact = function (contact) {
-    Friends.edit(contact).then(
+    return Friends.edit(contact).then(
       function () { $location.path('/tab/account'); },
       function () { $location.path('/tab/account'); }
     )
@@ -169,7 +178,7 @@ angular.module('treephone.controllers', [])
 
 .controller('DeleteCtrl', function ($scope, $location, Auth, Friends) {
   $scope.delete = function () {
-    Friends.delete(Auth.getUserId()).then(
+    return Friends.delete(Auth.getUserId()).then(
       function () { $location.path('/login'); },
       function () { $location.path('/login'); }
     )
@@ -180,7 +189,7 @@ angular.module('treephone.controllers', [])
 
 .controller('CsvCtrl', function ($scope, $location, Auth, Friends) {
   $scope.requestCsv = function (contact) {
-    Friends.edit(contact).then(
+    return Friends.edit(contact).then(
       function () { Friends.csv(contact.uid).then(
         function () { $location.path('/tab/account'); },
         function () { $location.path('/tab/account'); }

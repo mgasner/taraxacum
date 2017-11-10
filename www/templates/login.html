@@ -2,11 +2,12 @@
   <ion-content class="padding">
     <h3>Please enter your phone number</h3>
     <p>We'll text you a code you can use to log in.</p>
-    <form ng-submit="submitLogin(login)">
+    <form ng-submit="submitLogin(login)"
+          promise-btn>
       <label class="item item-input">
         <input type="tel" placeholder="XXX-XXX-XXXX" ng-model="login.tel">
       </label><br/>
-      <button ion-button round>{{rpc.pending ? '...' : 'Get Code'}}</button>
+      <button type="submit" ion-button round>{{rpc.pending ? '...' : 'Get Code'}}</button>
     </form>
   </ion-content>
 </ion-view>

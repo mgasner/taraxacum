@@ -16,7 +16,7 @@
       <ion-item>
         <small><strong>Address</strong></small><br />
         {{friend.address_1}}<br />
-        {{friend.address_2 || ""}}<br />
+        {{friend.address_2 === "None" ? '' : friend.address_2}}<br />
         {{friend.city}}, {{friend.state}} {{friend.zip_code}}
       </ion-item>
       <ion-item>
@@ -26,8 +26,8 @@
     </ion-list>
     <h4>{{friend.first_name}} has {{friend.outdegree}} direct contacts
       and {{friend.network_size}} people in their network.</h4>
-    <form ng-submit="invite()">
-      <button ion-button round>Resend invite</button> <br />
+    <form ng-submit="invite()" promise-btn>
+      <button ion-button round type="submit">Resend invite</button> <br />
     </form>
   </ion-content>
 </ion-view>
