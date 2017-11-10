@@ -1,0 +1,9 @@
+<ion-view title="Add Contact" cache-view="false">
+  <ion-content class="padding">
+    <small><strong>Notes</strong></small><br />
+    <form ng-submit="editContact(contact)" id="notes">
+        <textarea style="background-color: #eeeeee; width: 100%;" form ="notes" rows="10" wrap="soft"  ng-model="contact.freeform_notes"></textarea>
+      <button ion-button round>{{ rpc.pending ? '...' : 'Save' }}</button>
+    </form>
+  </ion-content>
+</ion-view>

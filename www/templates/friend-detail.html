@@ -10,10 +10,18 @@
         <i class="icon icon ion-call" style="color:green"></i><a href="{{telephoneLink}}">{{formattedPhone}}</a>
       </ion-item>
       <ion-item>
+        <small><strong>Email Address</strong></small><br />
+        {{friend.email_address}}
+      </ion-item>
+      <ion-item>
         <small><strong>Address</strong></small><br />
         {{friend.address_1}}<br />
         {{friend.address_2 || ""}}<br />
         {{friend.city}}, {{friend.state}} {{friend.zip_code}}
+      </ion-item>
+      <ion-item>
+        <small><strong>Notes</strong></small><br />
+        {{friend.freeform_notes}}
       </ion-item>
     </ion-list>
     <h4>{{friend.first_name}} has {{friend.outdegree}} direct contacts

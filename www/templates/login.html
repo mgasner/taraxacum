@@ -6,7 +6,7 @@
       <label class="item item-input">
         <input type="tel" placeholder="XXX-XXX-XXXX" ng-model="login.tel">
       </label><br/>
-      <button ion-button round>Get Code</button>
+      <button ion-button round>{{rpc.pending ? '...' : 'Get Code'}}</button>
     </form>
   </ion-content>
 </ion-view>

@@ -1,5 +1,19 @@
 angular.module('treephone.services', [])
 
+.factory('Rpc', function () {
+
+  return {
+    pending: false,
+    error: false,
+    setPending: function (status) {
+      this.pending = status;
+    },
+    setError: function (status) {
+      this.error = status;
+    }    
+  }
+})
+
 .factory('Auth', function($resource, localStorageService) {
   var _phoneNumber;
   var _sessionId;
@@ -15,6 +29,8 @@ angular.module('treephone.services', [])
   };
 
   return {
+    editing: undefined,
+
     setPhoneNumber: function (phoneNumber) {
       _phoneNumber = phoneNumber;
       localStorageService.set('_phoneNumber', phoneNumber);
@@ -51,7 +67,7 @@ angular.module('treephone.services', [])
   }
 })
 
-.factory('Friends', function($resource, $http, Auth, api_root, _) {
+.factory('Friends', function($resource, $http, Rpc, Auth, api_root, _) {
 
   return {
     get: function(friendId) {
@@ -60,14 +76,19 @@ angular.module('treephone.services', [])
         url: api_root + '/users/' + friendId,
         headers: Auth.getHeaders()
       };
+      Rpc.setPending(true);
+      console.log(Rpc);
       var promise = $http(req)
       .then(
         function (result) {
           friend = result.data;
+          Rpc.setPending(false);
           return friend;
         },
         function (result) {
           console.log(result)
+          Rpc.setPending(false);
+          Rpc.setError(true);
           return {};});
       return promise;
     },
@@ -77,14 +98,18 @@ angular.module('treephone.services', [])
         url: api_root + '/users/' + parentId + '/children',
         headers: Auth.getHeaders()
       }
+      Rpc.setPending(true);
       var promise = $http(req)
       .then(
         function (result) {
           friends = result.data;
+          Rpc.setPending(false);
           return friends;
         },
         function (result) {
           console.log(result);
+          Rpc.setPending(false);
+          Rpc.setError(true);
           return [];});
       return promise;
     },
@@ -96,12 +121,16 @@ angular.module('treephone.services', [])
         headers: Auth.getHeaders(),
         data: friend
       }
+      Rpc.setPending(true);
       var promise = $http(req)
       .then(
         function (result) {
+          Rpc.setPending(false);
           return result.data;
         },
         function (result) {
+          Rpc.setPending(false);
+          Rpc.setError(true);
           return {};
         }
       );
@@ -115,12 +144,16 @@ angular.module('treephone.services', [])
         headers: Auth.getHeaders(),
         data: friend
       }
+      Rpc.setPending(true);
       var promise = $http(req)
       .then(
         function (result) {
+          Rpc.setPending(false);
           return result.data;
         },
         function (result) {
+          Rpc.setPending(false);
+          Rpc.setError(true);
           return {};
         }
       );
@@ -133,10 +166,14 @@ angular.module('treephone.services', [])
         url: api_root + '/users/' + friendId + '/csv',
         headers: Auth.getHeaders()
       };
+      Rpc.setPending(true);
       var promise  = $http(req)
       .then(
-        function () { return {};},
-        function () { return {};}
+        function () { Rpc.setPending(false);},
+        function () { 
+          Rpc.setPending(false);
+          Rpc.setError(true);
+        }
       );
       return promise;
     },
@@ -147,10 +184,14 @@ angular.module('treephone.services', [])
         url: api_root + '/users/' + friendId + '/invite',
         headers: Auth.getHeaders()
       };
+      Rpc.setPending(true);
       var promise  = $http(req)
       .then(
-        function () { return {};},
-        function () { return {};}
+        function () { Rpc.setPending(false);},
+        function () { 
+          Rpc.setPending(false);
+          Rpc.setError(true);
+        }
       );
       return promise;
     },

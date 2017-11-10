@@ -1,12 +1,19 @@
 <ion-view title="Dashboard" cache-view="false">
   <ion-content class="padding">
-    <h3>Hi, {{ user.first_name }}!</h3>
+    <div ng-show="rpc.pending">
+      <br />
+      <br />
+      <span us-spinner ng-show="rpc.pending"></span>
+    </div>
+    <div ng-show="! rpc.pending">
+      <h3>Hi, {{ user.first_name }}!</h3>
       <h4>You have <strong>{{ user.outdegree }}</strong> direct contacts, and <strong>{{ user.network_size }}</strong> contacts in your network.</h4>
       <div text-center>
-        <button ng-click="go('/tab/add')">Add Contact</button><br />
+        <button ng-click="go('/tab/add/1')">Add Contact</button><br />
         <button ng-click="go('/tab/friends')">View Contacts</button><br />
         <button ng-click="go('/tab/account')">Admin</button>
       </div>
+    </div>
     </ion-list>
   </ion-content>
 </ion-view>

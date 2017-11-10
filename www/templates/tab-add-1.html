@@ -1,0 +1,30 @@
+<ion-view title="Add Contact" cache-view="false">
+  <ion-content class="padding">
+    <form ng-submit="addContact(contact)">
+      <small><strong>Name</strong></small>
+      <label class="item item-input">
+        <input type="text" placeholder="First"
+               ng-model="contact.first_name"
+               id="first_name">
+      </label>
+      <label class="item item-input">
+        <input type="text" placeholder="Last"
+               ng-model="contact.last_name"
+               id="last_name">
+      </label><br/>
+      <small><strong>Mobile Phone</strong></small>
+      <label class="item item-input">
+        <input type="tel" placeholder="XXX-XXX-XXXX"
+               ng-model="contact.phone_number"
+               id="phone_number">
+      </label><br />
+      <small><strong>Email Address</strong></small>
+      <label class="item item-input">
+        <input type="text" placeholder="name@domain.com"
+               ng-model="contact.email_address"
+               id="phone_number">
+      </label><br />
+      <button ion-button round>{{ rpc.pending ? '...' : 'Next' }}</button>
+    </form>
+  </ion-content>
+</ion-view>

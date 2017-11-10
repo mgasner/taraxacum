@@ -5,7 +5,7 @@
       <label class="item item-input">
         <input type="tel" placeholder="XXXXXXX" ng-model="tfa.code">
       </label><br />
-      <button ion-button round>Verify</button>
+      <button ion-button round>{{rpc.pending ? '...' : 'Verify' }}</button>
     </form><br />
     <form ng-submit="resendTfa()">
       <label class="item item-button">

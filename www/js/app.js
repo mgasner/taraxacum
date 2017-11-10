@@ -11,7 +11,8 @@ angular.module(
    'ngResource',
    'treephone.controllers',
    'treephone.services',
-   'LocalStorageModule'])
+   'LocalStorageModule',
+   'angularSpinner'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -29,11 +30,28 @@ angular.module(
 
 .constant('_', window._)
 
+.factory('httpServiceUnavailableInterceptor', function($q, $injector) {
+  return {
+    'responseError': function (response) {
+      if (response.status === 503) {
+        return $timeout(function () {
+          var $http = $injector.get('$http');
+          return $http(response.config);
+        }, 750)
+      }
+      return $q.reject(response);
+    }
+  }
+})
 // config parameters
 
 .constant(
   'api_root',
   'https://dandelion-phonetree.herokuapp.com')
+
+.config(function($httpProvider) {
+  $httpProvider.interceptors.push('httpServiceUnavailableInterceptor');
+})
 
 .config(function($stateProvider, $urlRouterProvider) {
 
@@ -75,10 +93,30 @@ angular.module(
     })
 
     .state('tab.add', {
-      url: '/add',
+      url: '/add/1',
       views: {
         'tab-add': {
-          templateUrl: 'templates/tab-add.html',
+          templateUrl: 'templates/tab-add-1.html',
+          controller: 'AddCtrl'
+        }
+      }
+    })
+
+    .state('tab.add-2', {
+      url: '/add/2',
+      views: {
+        'tab-add': {
+          templateUrl: 'templates/tab-add-2.html',
+          controller: 'AddCtrl'
+        }
+      }
+    })
+
+    .state('tab.add-3', {
+      url: '/add/3',
+      views: {
+        'tab-add': {
+          templateUrl: 'templates/tab-add-3.html',
           controller: 'AddCtrl'
         }
       }

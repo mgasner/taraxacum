@@ -2,7 +2,8 @@ angular.module('treephone.controllers', [])
 
 .controller(
   'LoginCtrl',
-  function($scope, $location, $http, Auth, api_root) {
+  function($scope, $location, $http, Rpc, Auth, api_root) {
+    $scope.rpc = Rpc;
     $scope.submitLogin = function(login) {
       Auth.setPhoneNumber(login.tel);
       $http.post(
@@ -21,7 +22,8 @@ angular.module('treephone.controllers', [])
 
 .controller(
   'TfaCtrl',
-  function($scope, $location, $http, Auth, Friends, api_root) {
+  function($scope, $location, $http, Rpc, Auth, Friends, api_root) {
+    $scope.rpc = Rpc;
     $scope.submitTfa = function (tfa) {
       $http.post(
         api_root + '/sessions',
@@ -45,24 +47,53 @@ angular.module('treephone.controllers', [])
 })
 
 .controller('AddCtrl', function($scope, $location, Friends, Auth, $anchorScroll) {
+  var next, back;
+  if ($location.url() == '/tab/add/1') {
+    next = '/tab/add/2';
+    back = '/tab/friends';
+  } else if ($location.url() == '/tab/add/2') {
+    next = '/tab/add/3';
+    back = '/tab/add/1';
+  } else {
+    next = '/tab/friends';
+    back = '/tab/add/2'
+  }
+
+  console.log(Friends.editing);
+
+
   $scope.addContact = function (contact) {
+    console.log(next);
     Friends.add(contact, Auth.getUserId()).then(
-      function () { $location.path('/tab/friends'); },
-      function () { $location.path('/tab/friends'); }
+      function (contact) {
+        Friends.editing = contact.uid;
+        console.log(next);
+        $location.path(next); },
+      // TODO should pop a modal
+      function () { return; }
     )
   };
-  $scope.scrollTo = function (hash) {
-    return;
-    // $location.hash(hash);
-    // $anchorScroll();
-  }
+
+  $scope.editContact = function (contact) {
+    console.log('editing...');
+    contact.uid = Friends.editing;
+    console.log(contact)
+    Friends.edit(contact).then(
+      function () { $location.path(next); },
+      // TODO should pop a modal
+      function () { return; }
+    )
+  };
 })
 
-.controller('DashCtrl', function($scope, $location, Auth, Friends) {
+.controller('DashCtrl', function($scope, $location, Rpc, Auth, Friends) {
   $scope.go = function ( path ) {
     console.log(path);
     $location.path( path );
   };
+  
+  $scope.rpc = Rpc;
+
   console.log('getting user...');
   Friends.get(Auth.getUserId()).then(
     function (user) {
