@@ -1,30 +1,34 @@
 <ion-view title="Add Contact" cache-view="false">
-  <ion-content class="padding" scroll="true">
+  <!-- <ion-content class="padding" scroll="true"> -->
     <form ng-submit="addContact(contact)" promise-btn>
       <small><strong>Name</strong></small>
       <label class="item item-input">
         <input type="text" placeholder="First"
+               ng-click="scrollTo('first_name')"
                ng-model="contact.first_name"
                id="first_name">
       </label>
       <label class="item item-input">
         <input type="text" placeholder="Last"
+               ng-click="scrollTo('last_name')"
                ng-model="contact.last_name"
                id="last_name">
       </label><br/>
       <small><strong>Mobile Phone</strong></small>
       <label class="item item-input">
         <input type="tel" placeholder="XXX-XXX-XXXX"
+               ng-click="scrollTo('phone_number')"
                ng-model="contact.phone_number"
                id="phone_number">
       </label><br />
       <small><strong>Email Address</strong></small>
       <label class="item item-input">
         <input type="text" placeholder="name@domain.com"
+               ng-click="scrollTo('email_address')"
                ng-model="contact.email_address"
                id="email_address">
       </label><br />
       <button ion-button round type="submit">Next</button>
     </form>
-  </ion-content>
+  <!-- </ion-content> -->
 </ion-view>
