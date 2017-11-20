@@ -1,5 +1,5 @@
 <ion-view title="Add Contact" cache-view="false">
-  <ion-content class="padding">
+  <ion-content class="padding" scroll="true">
     <form ng-submit="addContact(contact)" promise-btn>
       <small><strong>Name</strong></small>
       <label class="item item-input">
@@ -22,7 +22,7 @@
       <label class="item item-input">
         <input type="text" placeholder="name@domain.com"
                ng-model="contact.email_address"
-               id="phone_number">
+               id="email_address">
       </label><br />
       <button ion-button round type="submit">Next</button>
     </form>
