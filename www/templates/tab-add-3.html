@@ -4,6 +4,8 @@
     <form ng-submit="editContact(contact)" id="notes" promise-btn>
         <textarea style="background-color: #eeeeee; width: 100%;" form ="notes" rows="10" wrap="soft"  ng-model="contact.freeform_notes"></textarea>
       <button ion-button round type="submit">{{ rpc.pending ? '...' : 'Save' }}</button>
-    </form>
+    </form><br />
+    Write a quick note to help you remember who you just signed up.
+    Only you will see these notes -- the person you signed up won't.
   </ion-content>
 </ion-view>
