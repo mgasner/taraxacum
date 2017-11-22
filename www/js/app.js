@@ -123,6 +123,16 @@ angular.module(
       }
     })
 
+    .state('tab.add-4', {
+      url: '/add/4',
+      views: {
+        'tab-add': {
+          templateUrl: 'templates/tab-add-4.html',
+          controller: 'AddCtrl'
+        }
+      }
+    })
+
     .state('tab.friends', {
       url: '/friends',
       views: {

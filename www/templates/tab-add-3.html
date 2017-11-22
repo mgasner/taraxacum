@@ -1,11 +1,9 @@
 <ion-view title="Add Contact" cache-view="false">
   <ion-content class="padding">
-    <small><strong>Notes</strong></small><br />
-    <form ng-submit="editContact(contact)" id="notes" promise-btn>
-        <textarea style="background-color: #eeeeee; width: 100%;" form ="notes" rows="10" wrap="soft"  ng-model="contact.freeform_notes"></textarea>
-      <button ion-button round type="submit">{{ rpc.pending ? '...' : 'Save' }}</button>
-    </form><br />
-    Write a quick note to help you remember who you just signed up.
-    Only you will see these notes -- the person you signed up won't.
+    <h4>Thanks!</h4>
+    Hand this phone back to its owner. You'll get a text
+    from Local Politics in a second. Open it and install the
+    app on your homescreen!
+    <button ng-click="go('/tab/add/4')">Next</buteton><br />
   </ion-content>
 </ion-view>

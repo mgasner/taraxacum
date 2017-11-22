@@ -55,7 +55,8 @@ angular.module('treephone.controllers', [])
     };
 })
 
-.controller('AddCtrl', function($scope, $location, Friends, Auth, $anchorScroll) {
+.controller('AddCtrl', function(
+    $scope, $location, Friends, Auth, $anchorScroll) {
   var next, back;
   if ($location.url() == '/tab/add/1') {
     next = '/tab/add/2';
@@ -68,7 +69,10 @@ angular.module('treephone.controllers', [])
     back = '/tab/add/2'
   }
 
-  console.log(Friends.editing);
+  $scope.go = function ( path ) {
+    console.log(path);
+    $location.path( path );
+  };
 
 
   $scope.addContact = function (contact) {
@@ -93,6 +97,10 @@ angular.module('treephone.controllers', [])
       function () { return; }
     )
   };
+  $scope.scrollTo = function (hash) {
+    $location.hash(hash);
+    $anchorScroll();
+  }
 })
 
 .controller('DashCtrl', function($scope, $location, Rpc, Auth, Friends) {
